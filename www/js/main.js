@@ -34,7 +34,7 @@ for (var l = 9; 0 <= l; l--) {
 
 function onFrame(event) {
     if (0 == event.count % 1) {
-        var tr = red[Math.floor(Math.random() * 9)][1+Math.floor(Math.random() * 10)];
+        var tr = red[Math.floor(Math.random() * 9)][1+Math.floor(Math.random() * 19)];
         tr.fillColor = (.5 < Math.random() ? tr.activeFill : "black");
     }
 }

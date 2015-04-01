@@ -33,3 +33,10 @@ for (var l = 9; 0 <= l; l--) {
         red[l][1 + c * 2] = triangle(s2);
     }
 }
+
+
+cleanRed = function() {
+    for (var l = 0; l < 10; l++)
+        for (var c = 0; c < 19; c++)
+            red[l][c].setState(false);
+}

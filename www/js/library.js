@@ -38,5 +38,7 @@ for (var l = 9; 0 <= l; l--) {
 cleanRed = function() {
     for (var l = 0; l < 10; l++)
         for (var c = 0; c < 19; c++)
-            red[l][c].setState(false);
+            red[l][c].fillColor = "black";
+    paper.view.update();
+
 }

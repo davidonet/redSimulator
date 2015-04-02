@@ -8,10 +8,11 @@ function triangle(start) {
     path.lineTo(start + [100, 0]);
     path.lineTo(start + [50, 150]);
     path.lineTo(start);
+    path.isMoving =false;
+    path.state = false;
     path.setState = function(state) {
-        if (state != this.state)
+        if ((state != this.state) && (!this.isMoving))
             if (state) {
-
                 this.isMoving = true;
                 this.movingTo = this.segments[2].point.y - 15;
                 this.state = true;

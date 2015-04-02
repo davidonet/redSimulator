@@ -8,17 +8,23 @@ function triangle(start) {
     path.lineTo(start + [100, 0]);
     path.lineTo(start + [50, 150]);
     path.lineTo(start);
-    path.activeFill = {
-        gradient: {
-            stops: ['black', darkGrey]
-        },
-        origin: start + [50, 0],
-        destination: start + [50, 150]
-    };
     path.setState = function(state) {
-        this.fillColor = (state ? this.activeFill : "black");
-        paper.view.update();
+        if (state != this.state)
+            if (state) {
+
+                this.isMoving = true;
+                this.movingTo = this.segments[2].point.y - 15;
+                this.state = true;
+            } else {
+                if (this.state) {
+                    this.isMoving = true;
+                    this.movingTo = this.segments[2].point.y + 15;
+                    this.state = false;
+                }
+
+            }
     }
+
     return path;
 }
 
@@ -34,11 +40,45 @@ for (var l = 9; 0 <= l; l--) {
     }
 }
 
+var clean = false;
+
+function onFrame() {
+    if (clean) {
+        for (var i = red.length - 1; i >= 0; i--) {
+            for (var j = red[i].length - 1; j >= 0; j--) {
+                red[i][j].fillColor = "black";
+                red[i][j].state = false;
+            }
+        }
+        clean = false;
+    } else {
+        for (var i = red.length - 1; i >= 0; i--) {
+            for (var j = red[i].length - 1; j >= 0; j--) {
+                if (red[i][j].isMoving) {
+                    //console.log(i, j, red[i][j].movingTo)
+                    if (red[i][j].state) {
+                        if (red[i][j].movingTo < red[i][j].segments[2].point.y) {
+                            red[i][j].segments[2].point.y--;
+                            red[i][j].fillColor.brightness += .01;
+                        } else {
+                            red[i][j].isMoving = false;
+                        }
+                    } else {
+                        if (red[i][j].segments[2].point.y < red[i][j].movingTo) {
+                            red[i][j].segments[2].point.y+=.2;
+                            red[i][j].fillColor.brightness -= .01;
+                        } else {
+                            red[i][j].isMoving = false;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
+
 
 cleanRed = function() {
-    for (var l = 0; l < 10; l++)
-        for (var c = 0; c < 19; c++)
-            red[l][c].fillColor = "black";
-    paper.view.update();
-
+    clean = true;
 }

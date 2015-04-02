@@ -58,15 +58,17 @@ function onFrame() {
                     //console.log(i, j, red[i][j].movingTo)
                     if (red[i][j].state) {
                         if (red[i][j].movingTo < red[i][j].segments[2].point.y) {
-                            red[i][j].segments[2].point.y--;
-                            red[i][j].fillColor.brightness += .01;
+                            red[i][j].segments[2].point.y-=1.2;
+                            if (red[i][j].fillColor.brightness < .5)
+                                red[i][j].fillColor.brightness += .01;
                         } else {
                             red[i][j].isMoving = false;
                         }
                     } else {
                         if (red[i][j].segments[2].point.y < red[i][j].movingTo) {
-                            red[i][j].segments[2].point.y+=.2;
-                            red[i][j].fillColor.brightness -= .01;
+                            red[i][j].segments[2].point.y += .2;
+                            if (0 < red[i][j].fillColor.brightness)
+                                red[i][j].fillColor.brightness -= .01;
                         } else {
                             red[i][j].isMoving = false;
                         }

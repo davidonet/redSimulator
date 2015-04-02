@@ -12,7 +12,7 @@ $(function() {
     var looping = function() {
         if (loop) {
             red[Math.floor(Math.random() * 10)][Math.floor(Math.random() * 20)].setState(Math.random() < .5);
-            setTimeout(looping, 100)
+            setTimeout(looping, 50+(Math.random() * 500))
         }
     }
     $("#prog3").click(function() {

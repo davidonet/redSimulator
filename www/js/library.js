@@ -43,44 +43,39 @@ for (var l = 9; 0 <= l; l--) {
 var clean = false;
 
 function onFrame() {
-    if (clean) {
-        for (var i = red.length - 1; i >= 0; i--) {
-            for (var j = red[i].length - 1; j >= 0; j--) {
-                red[i][j].fillColor = "black";
-                red[i][j].state = false;
-            }
-        }
-        clean = false;
-    } else {
-        for (var i = red.length - 1; i >= 0; i--) {
-            for (var j = red[i].length - 1; j >= 0; j--) {
-                if (red[i][j].isMoving) {
-                    //console.log(i, j, red[i][j].movingTo)
-                    if (red[i][j].state) {
-                        if (red[i][j].movingTo < red[i][j].segments[2].point.y) {
-                            red[i][j].segments[2].point.y-=1.2;
-                            if (red[i][j].fillColor.brightness < .5)
-                                red[i][j].fillColor.brightness += .01;
-                        } else {
-                            red[i][j].isMoving = false;
-                        }
+    for (var i = red.length - 1; i >= 0; i--) {
+        for (var j = red[i].length - 1; j >= 0; j--) {
+            if (red[i][j].isMoving) {
+                //console.log(i, j, red[i][j].movingTo)
+                if (red[i][j].state) {
+                    if (red[i][j].movingTo < red[i][j].segments[2].point.y) {
+                        red[i][j].segments[2].point.y -= 1.2;
+                        if (red[i][j].fillColor.brightness < .5)
+                            red[i][j].fillColor.brightness += .01;
                     } else {
-                        if (red[i][j].segments[2].point.y < red[i][j].movingTo) {
-                            red[i][j].segments[2].point.y += .2;
-                            if (0 < red[i][j].fillColor.brightness)
-                                red[i][j].fillColor.brightness -= .001;
-                        } else {
-                            red[i][j].isMoving = false;
-                        }
+                        red[i][j].isMoving = false;
+                    }
+                } else {
+                    if (red[i][j].segments[2].point.y < red[i][j].movingTo) {
+                        red[i][j].segments[2].point.y += .2;
+                        if (0 < red[i][j].fillColor.brightness)
+                            red[i][j].fillColor.brightness -= .001;
+                    } else {
+                        red[i][j].isMoving = false;
                     }
                 }
-
             }
+
         }
     }
 }
 
 
+
 cleanRed = function() {
-    clean = true;
+    for (var i = red.length - 1; i >= 0; i--) {
+        for (var j = red[i].length - 1; j >= 0; j--) {
+            red[i][j].setState(false);
+        }
+    }
 }

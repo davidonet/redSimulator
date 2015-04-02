@@ -68,7 +68,7 @@ function onFrame() {
                         if (red[i][j].segments[2].point.y < red[i][j].movingTo) {
                             red[i][j].segments[2].point.y += .2;
                             if (0 < red[i][j].fillColor.brightness)
-                                red[i][j].fillColor.brightness -= .01;
+                                red[i][j].fillColor.brightness -= .001;
                         } else {
                             red[i][j].isMoving = false;
                         }

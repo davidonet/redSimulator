@@ -62,6 +62,7 @@ function onFrame() {
                         if (0 < red[i][j].fillColor.brightness)
                             red[i][j].fillColor.brightness -= .001;
                     } else {
+                        red[i][j].fillColor.brightness =0;
                         red[i][j].isMoving = false;
                     }
                 }
